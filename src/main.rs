@@ -34,7 +34,7 @@ usage: minigrep [options] [query_string] filename
         }
     };
 
-    let grep_result = match grep::grep(&config) {
+    let grep_result = match grep::GrepResult::new(&config) {
         Ok(x) => x,
         Err(err) => {
             match err {

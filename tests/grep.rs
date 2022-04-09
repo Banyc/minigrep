@@ -17,7 +17,7 @@ fn test_grep_literal_string_single_file1() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("this line is the 1st lower case line in this file.".to_string(), matches[0]);
     assert_eq!("Two lines above this line is empty.".to_string(), matches[1]);
     assert_eq!("And this is the last line.".to_string(), matches[2]);
@@ -30,7 +30,7 @@ fn test_grep_literal_string_single_file2() {
         "this".to_string(),
         "demo_file.txt".to_string()];
     let config = GrepConfig::new(&args).unwrap();
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("this line is the 1st lower case line in this file.".to_string(), matches[0]);
     assert_eq!("Two lines above this line is empty.".to_string(), matches[1]);
     assert_eq!("And this is the last line.".to_string(), matches[2]);
@@ -44,7 +44,7 @@ fn test_grep_literal_string_single_file3() {
         "this".to_string(),
         "demo_file.txt".to_string()];
     let config = GrepConfig::new(&args).unwrap();
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("this line is the 1st lower case line in this file.".to_string(), matches[0]);
     assert_eq!("Two lines above this line is empty.".to_string(), matches[1]);
     assert_eq!("And this is the last line.".to_string(), matches[2]);
@@ -63,7 +63,7 @@ fn test_grep_literal_string_multiple_files1() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("demo_file.txt:this line is the 1st lower case line in this file.".to_string(), matches[0]);
     assert_eq!("demo_file.txt:Two lines above this line is empty.".to_string(), matches[1]);
     assert_eq!("demo_file.txt:And this is the last line.".to_string(), matches[2]);
@@ -79,7 +79,7 @@ fn test_grep_literal_string_multiple_files2() {
         "this".to_string(),
         "demo_*.txt".to_string()];
     let config = GrepConfig::new(&args).unwrap();
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("demo_file.txt:this line is the 1st lower case line in this file.".to_string(), matches[0]);
     assert_eq!("demo_file.txt:Two lines above this line is empty.".to_string(), matches[1]);
     assert_eq!("demo_file.txt:And this is the last line.".to_string(), matches[2]);
@@ -102,7 +102,7 @@ fn test_grep_case_insensitive() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.".to_string(), matches[0]);
     assert_eq!("this line is the 1st lower case line in this file.".to_string(), matches[1]);
     assert_eq!("This Line Has All Its First Character Of The Word With Upper Case.".to_string(), matches[2]);
@@ -122,7 +122,7 @@ fn test_grep_regex() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("Two lines above this line is empty.".to_string(), matches[0]);
 }
 
@@ -141,7 +141,7 @@ fn test_grep_word() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.".to_string(), matches[0]);
     assert_eq!("this line is the 1st lower case line in this file.".to_string(), matches[1]);
     assert_eq!("Two lines above this line is empty.".to_string(), matches[2]);
@@ -165,7 +165,7 @@ fn test_grep_invert() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let matches = grep::grep(&config).unwrap().to_lines(false);
+    let matches = grep::GrepResult::new(&config).unwrap().to_lines(false);
     assert_eq!("d".to_string(), matches[0]);
 }
 
@@ -184,7 +184,7 @@ fn test_grep_line_number() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let s = grep::grep(&config).unwrap().to_string(&config);
+    let s = grep::GrepResult::new(&config).unwrap().to_string(&config);
     assert_eq!("5: * e - go to the end of the current word.
 6: * E - go to the end of the current WORD.
 7: * b - go to the previous (before) word.
@@ -208,7 +208,7 @@ fn test_grep_count1() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let s = grep::grep(&config).unwrap().to_string(&config);
+    let s = grep::GrepResult::new(&config).unwrap().to_string(&config);
     assert_eq!("3".to_string(), s);
 }
 
@@ -228,7 +228,7 @@ fn test_grep_count2() {
         num_pre_lines: 0,
         num_post_lines: 0,
     };
-    let s = grep::grep(&config).unwrap().to_string(&config);
+    let s = grep::GrepResult::new(&config).unwrap().to_string(&config);
     assert_eq!("2".to_string(), s);
 }
 
@@ -247,7 +247,7 @@ fn test_grep_after() {
         num_pre_lines: 0,
         num_post_lines: 3,
     };
-    let s = grep::grep(&config).unwrap().to_string(&config);
+    let s = grep::GrepResult::new(&config).unwrap().to_string(&config);
     assert_eq!("Example to show the difference between WORD and word
 
  * 192.168.1.1 - single WORD
@@ -268,7 +268,7 @@ fn test_grep_before() {
         num_pre_lines: 2,
         num_post_lines: 0,
     };
-    let s = grep::grep(&config).unwrap().to_string(&config);
+    let s = grep::GrepResult::new(&config).unwrap().to_string(&config);
     assert_eq!("Example to show the difference between WORD and word
 
  * 192.168.1.1 - single WORD".to_string(), s);
@@ -288,7 +288,7 @@ fn test_grep_around() {
         num_pre_lines: 2,
         num_post_lines: 2,
     };
-    let s = grep::grep(&config).unwrap().to_string(&config);
+    let s = grep::GrepResult::new(&config).unwrap().to_string(&config);
     assert_eq!("word - word consists of a sequence of letters, digits and underscores.
 
 Example to show the difference between WORD and word
