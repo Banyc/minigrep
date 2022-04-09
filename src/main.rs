@@ -12,13 +12,13 @@ fn main() {
         Ok(config) => config,
         Err(err) => {
             match err {
-                ConfigError::UnknownOption(x) => println!("Unknown option: {}", x),
-                ConfigError::MissingArg(x) => println!("Missing arg: {}", x),
-                ConfigError::TooManyArgs => println!("Too many args"),
-                ConfigError::Filename(x) => println!("File name error: {}", x),
-                ConfigError::IllegalOptionValue(x) => println!("Illegal option value: {}", x),
+                ConfigError::UnknownOption(x) => eprintln!("Unknown option: {}", x),
+                ConfigError::MissingArg(x) => eprintln!("Missing arg: {}", x),
+                ConfigError::TooManyArgs => eprintln!("Too many args"),
+                ConfigError::Filename(x) => eprintln!("File name error: {}", x),
+                ConfigError::IllegalOptionValue(x) => eprintln!("Illegal option value: {}", x),
             }
-            println!("\
+            eprintln!("\
 usage: minigrep [options] [query_string] filename
   options:
     -i           ignore case distinctions in both the query string and the file contents
@@ -38,9 +38,9 @@ usage: minigrep [options] [query_string] filename
         Ok(x) => x,
         Err(err) => {
             match err {
-                GrepError::FileNotExists => println!("File not exists"),
-                GrepError::NotValidUTF8 => println!("File contents not being valid utf-8"),
-                GrepError::Query(x) => println!("Query error: {}", x),
+                GrepError::FileNotExists => eprintln!("File not exists"),
+                GrepError::NotValidUTF8 => eprintln!("File contents not being valid utf-8"),
+                GrepError::Query(x) => eprintln!("Query error: {}", x),
             }
             return;
         }
