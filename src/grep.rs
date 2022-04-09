@@ -16,18 +16,18 @@ pub enum GrepError {
     Query(String),
 }
 
-pub struct LineResult {
+struct LineResult {
     line_number: i32,
     text: String,
 }
 
-pub struct FileResult {
-    pub file_path: path::PathBuf,
-    pub lines: Vec<LineResult>,
+struct FileResult {
+    file_path: path::PathBuf,
+    lines: Vec<LineResult>,
 }
 
 pub struct GrepResult {
-    pub file_results: Vec<FileResult>,
+    file_results: Vec<FileResult>,
 }
 
 impl GrepResult {
