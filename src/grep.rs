@@ -7,7 +7,7 @@ use std::{
 
 use regex::Regex;
 
-use crate::grep_config::{self, GrepConfig, GrepOption};
+use super::grep_config::{self, GrepConfig, GrepOption};
 
 #[derive(Debug)]
 pub enum GrepError {
